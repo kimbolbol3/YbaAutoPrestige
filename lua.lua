@@ -974,3 +974,6 @@ coroutine.resume(coroutine.create(function()
 end))
 main()
 end
+if CheckHardwareID() == false then
+	print("nonono")
+end
