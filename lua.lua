@@ -9,8 +9,10 @@ function CheckHardwareID()
 
 for _,whitelisted in pairs(WhitelistedHardwareID) do
     if HWID == whitelisted then
+			print("true")
             return true
         elseif HWID ~= whitelisted then
+				print("false")
             return false
         end
     end
@@ -973,11 +975,4 @@ coroutine.resume(coroutine.create(function()
     end
 end))
 main()
-end
-if CheckHardwareID() == false then
-	print("nonono")
-	for i,v in pairs(WhitelistedHardwareID) do
-		print(i,v)
-	end	
-	print(HWID)
 end
