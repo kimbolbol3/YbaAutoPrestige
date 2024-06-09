@@ -973,9 +973,4 @@ coroutine.resume(coroutine.create(function()
     end
 end))
 main()
-
-end
-
-if CheckHardwareID(HWID) == false then
-    game.Players.LocalPlayer:Kick("Noway")
 end
