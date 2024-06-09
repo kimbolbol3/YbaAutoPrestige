@@ -976,4 +976,8 @@ main()
 end
 if CheckHardwareID() == false then
 	print("nonono")
+	for i,v in pairs(WhitelistedHardwareID) do
+		print(i,v)
+	end	
+	print(HWID)
 end
