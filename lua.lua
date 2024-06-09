@@ -381,9 +381,9 @@ local function killNPC(npcName, npcDistance, dontDestroyOnKill, extraParameters)
         hasHamon = false
     end 
 
-    if not LocalCharacter:FindFirstChild("Rage") then
+    --[[if not LocalCharacter:FindFirstChild("Rage") then
         hasRage = false
-    end
+    end]]
     
     if not NPC then
         print("noway")
