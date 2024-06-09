@@ -3,21 +3,15 @@ local HWID = game:GetService("RbxAnalyticsService"):GetClientId()
 
 local WhitelistedHardwareID = loadstring(game:HttpGet("https://pastebin.com/raw/TgxcDCLt"))()
 
- 
-
 function CheckHardwareID()
-
-for _,whitelisted in pairs(WhitelistedHardwareID) do
-    if HWID == whitelisted then
-			print("true")
+    for _, whitelisted in pairs(WhitelistedHardwareID) do
+        if HWID == whitelisted then
             return true
-        elseif HWID ~= whitelisted then
-				print("false")
-            return false
         end
     end
+    return false
 end
- 
+
 
 if CheckHardwareID() == true then
 
