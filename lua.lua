@@ -22,7 +22,6 @@ wait(0.8)
 local Players = game:GetService("Players")
 local LocalPlayer = Players.LocalPlayer
 local LocalCharacter = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
-local LocalRemote = LocalCharacter:FindFirstChild("RemoteEvent")
 local cantanything = false
 local stillfarming = false
 local TeleportService = loadstring(game:HttpGet"https://raw.githubusercontent.com/LeoKholYt/roblox/main/lk_serverhop.lua")()
@@ -86,11 +85,13 @@ end
 
 local function skipScreen()
     if not LocalPlayer.PlayerGui:FindFirstChild("HUD") then
+        print("I FOUND IT")
         local HUD = game.ReplicatedStorage.Objects.HUD:Clone()
         HUD.Parent = LocalPlayer.PlayerGui
     end
 
-    LocalRemote:FireServer("PressedPlay")
+    print("I DID FOUND IT, MAYBE IT WILL WORK?")
+    LocalCharacter.RemoteEvent:FireServer("PressedPlay")
 
     if LocalPlayer.PlayerGui:FindFirstChild("LoadingScreen1") then
         LocalPlayer.PlayerGui:FindFirstChild("LoadingScreen1"):Destroy()
@@ -128,7 +129,7 @@ local function getmoney(int)
                             local itemi = LocalPlayer.Backpack:FindFirstChild(item)
                             repeat task.wait() LocalCharacter.Humanoid:EquipTool(itemi) until LocalCharacter:FindFirstChild(item)
                             wait(0.3)
-                            LocalRemote:FireServer("EndDialogue", {["NPC"] = "Merchant",["Dialogue"] = "Dialogue5",["Option"] = "Option1"})
+                            LocalCharacter.RemoteEvent:FireServer("EndDialogue", {["NPC"] = "Merchant",["Dialogue"] = "Dialogue5",["Option"] = "Option1"})
                             wait(1.1)
                             cantanything = false
                         elseif item == "Zepellin's Headband" then
@@ -156,7 +157,7 @@ local function getmoney(int)
                             local itemi = LocalPlayer.Backpack:FindFirstChild(item)
                             repeat task.wait() LocalCharacter.Humanoid:EquipTool(itemi) until LocalCharacter:FindFirstChild(item)
                             wait(0.3)
-                            LocalRemote:FireServer("EndDialogue", {["NPC"] = "Merchant",["Dialogue"] = "Dialogue5",["Option"] = "Option1"})
+                            LocalCharacter.RemoteEvent:FireServer("EndDialogue", {["NPC"] = "Merchant",["Dialogue"] = "Dialogue5",["Option"] = "Option1"})
                             wait(1.1)
                             cantanything = false
                         end
@@ -186,7 +187,7 @@ local function UseRoka()
     cantanything = true
 
 
-    repeat task.wait() LocalCharacter.Humanoid:EquipTool(Roka) LocalCharacter:FindFirstChild(Roka.Name):Activate() wait(1) until LocalPlayer.PlayerGui:FindFirstChild("DialogueGui")
+    repeat task.wait() LocalCharacter.Humanoid:EquipTool(Roka) LocalCharacter:FindFirstChild(Roka.Name):Activate() until LocalPlayer.PlayerGui:FindFirstChild("DialogueGui")
     repeat
         pcall(function()
             task.wait()
@@ -220,7 +221,7 @@ local function UseArrow()
     cantanything = true
     LocalCharacter.RemoteFunction:InvokeServer("LearnSkill", {["Skill"] = "Worthiness I",["SkillTreeType"] = "Character"})
 
-    repeat task.wait() LocalCharacter.Humanoid:EquipTool(Arrow) LocalCharacter:FindFirstChild(Arrow.Name):Activate() wait(1) until LocalPlayer.PlayerGui:FindFirstChild("DialogueGui")
+    repeat task.wait() LocalCharacter.Humanoid:EquipTool(Arrow) LocalCharacter:FindFirstChild(Arrow.Name):Activate() until LocalPlayer.PlayerGui:FindFirstChild("DialogueGui")
     repeat
         pcall(function()
             task.wait()
@@ -248,6 +249,7 @@ end
 
 local function Quest()
     if not LocalCharacter then return end
+    local LocalRemote = LocalCharacter:FindFirstChild("RemoteEvent")
     LocalRemote:FireServer("EndDialogue", {["NPC"] = "Storyline #1",["Dialogue"] = "Dialogue2",["Option"] = "Option1"})
     LocalRemote:FireServer("EndDialogue", {["NPC"] = "Storyline #1",["Dialogue"] = "Dialogue6",["Option"] = "Option1"})
     LocalRemote:FireServer("EndDialogue", {["NPC"] = "Storyline #2",["Dialogue"] = "Dialogue3",["Option"] = "Option1"})
@@ -267,7 +269,7 @@ local function Quest()
     LocalRemote:FireServer("EndDialogue", {["NPC"] = "Storyline #12",["Dialogue"] = "Dialogue3",["Option"] = "Option1"})
     LocalRemote:FireServer("EndDialogue", {["NPC"] = "Storyline #13",["Dialogue"] = "Dialogue7",["Option"] = "Option1"})
     LocalRemote:FireServer("EndDialogue", {["NPC"] = "Storyline #14",["Dialogue"] = "Dialogue2",["Option"] = "Option1"})
-    --LocalRemote:FireServer("EndDialogue", {["NPC"] = "Storyline #14",["Dialogue"] = "Dialogue7",["Option"] = "Option1"}) diavolo defeat after  sceen bc very laggy and cant move spam using move and stun
+    --LocalCharacter.RemoteEvent:FireServer("EndDialogue", {["NPC"] = "Storyline #14",["Dialogue"] = "Dialogue7",["Option"] = "Option1"}) diavolo defeat after  sceen bc very laggy and cant move spam using move and stun
 end
 
 local function ReturnQuest(name)
@@ -363,6 +365,7 @@ end
 
 
 local function killNPC(npcName, npcDistance, dontDestroyOnKill, extraParameters)
+    print("DEBUG CHECK 1", npcName, npcDistance, dontDestroyOnKill, extraParameters)
     local PlayerStats = LocalPlayer:FindFirstChild("PlayerStats")
 	local NPC = workspace.Living:WaitForChild(npcName,60)
     local tagService = game:GetService("CollectionService")
@@ -378,9 +381,9 @@ local function killNPC(npcName, npcDistance, dontDestroyOnKill, extraParameters)
         hasHamon = false
     end 
 
-    --[[if not LocalCharacter:FindFirstChild("Rage") then
+    if not LocalCharacter:FindFirstChild("Rage") then
         hasRage = false
-    end]]
+    end
     
     if not NPC then
         print("noway")
@@ -428,13 +431,13 @@ local function killNPC(npcName, npcDistance, dontDestroyOnKill, extraParameters)
             if hasHamon then
                 if LocalCharacter.Hamon.Value <= 0 then
                     LocalCharacter.RemoteFunction:InvokeServer("AssignSkillKey", {["Type"] = "Spec",["Key"] = "Enum.KeyCode.L",["Skill"] = "Hamon Charge"}) --to prevent overloading
-                    LocalRemote:FireServer("InputBegan", {["Input"] = Enum.KeyCode.L})
+                    LocalCharacter.RemoteEvent:FireServer("InputBegan", {["Input"] = Enum.KeyCode.L})
                 end
             end
 
             if hasRage then
                 if LocalCharacter.Rage.Value >= 80 and PlayerStats.Stand.Value ~= "Crazy Diamond" then
-                    LocalRemote:FireServer("InputBegan", {["Input"] = Enum.KeyCode.H})
+                    LocalCharacter.RemoteEvent:FireServer("InputBegan", {["Input"] = Enum.KeyCode.H})
                 end
             end
         end
@@ -462,7 +465,7 @@ local function killNPC(npcName, npcDistance, dontDestroyOnKill, extraParameters)
             end
 
             if tagService:HasTag(NPC, "Blocking") then --neat feature yba
-                LocalRemote:FireServer("InputBegan", {["Input"] = Enum.KeyCode.R})
+                LocalCharacter.RemoteEvent:FireServer("InputBegan", {["Input"] = Enum.KeyCode.R})
             elseif hasHamon then
                 if LocalCharacter.Hamon.Value >= 1 then
                     LocalCharacter.RemoteFunction:InvokeServer("Attack", "m1")
@@ -478,13 +481,13 @@ local function killNPC(npcName, npcDistance, dontDestroyOnKill, extraParameters)
                     LocalCharacter.RemoteFunction:InvokeServer("LearnSkill", {["Skill"] = "Hamon Charge",["SkillTreeType"] = "Spec"})
                     
                     LocalCharacter.RemoteFunction:InvokeServer("AssignSkillKey", {["Type"] = "Spec",["Key"] = "Enum.KeyCode.L",["Skill"] = "Hamon Charge"}) --to prevent overloading
-                    LocalRemote:FireServer("InputBegan", {["Input"] = Enum.KeyCode.L})
+                    LocalCharacter.RemoteEvent:FireServer("InputBegan", {["Input"] = Enum.KeyCode.L})
                 end
             end
 
             if hasRage then
                 if LocalCharacter.Rage.Value >= 80 then
-                    LocalRemote:FireServer("InputBegan", {["Input"] = Enum.KeyCode.H})
+                    LocalCharacter.RemoteEvent:FireServer("InputBegan", {["Input"] = Enum.KeyCode.H})
                 end
             end
         end
@@ -865,7 +868,7 @@ local function main()
         killern("Ghiaccio")
     elseif ReturnQuest("Defeat Diavolo") then
         killern("Diavolo")
-        LocalRemote:FireServer("EndDialogue", {["NPC"] = "Storyline #14",["Dialogue"] = "Dialogue7",["Option"] = "Option1"})
+        LocalCharacter.RemoteEvent:FireServer("EndDialogue", {["NPC"] = "Storyline #14",["Dialogue"] = "Dialogue7",["Option"] = "Option1"})
         wait(1)
         LocalCharacter.Humanoid.Health = 0
     elseif ReturnQuest("Take down 3 zombie henchmans") then
@@ -898,13 +901,13 @@ local function main()
         end
         return
     elseif Prestige1 == 0 and Level1 == 35 then
-        LocalRemote:FireServer("EndDialogue", {["NPC"] = "Prestige",["Dialogue"] =  "Dialogue2",["Option"] = "Option1"})
+        LocalCharacter.RemoteEvent:FireServer("EndDialogue", {["NPC"] = "Prestige",["Dialogue"] =  "Dialogue2",["Option"] = "Option1"})
     elseif Prestige1 == 1 and Level1 == 40 then
-        LocalRemote:FireServer("EndDialogue", {["NPC"] = "Prestige",["Dialogue"] =  "Dialogue2",["Option"] = "Option1"})
+        LocalCharacter.RemoteEvent:FireServer("EndDialogue", {["NPC"] = "Prestige",["Dialogue"] =  "Dialogue2",["Option"] = "Option1"})
     elseif Prestige1 == 2 and Level1 == 45 then
-        LocalRemote:FireServer("EndDialogue", {["NPC"] = "Prestige",["Dialogue"] =  "Dialogue2",["Option"] = "Option1"})
+        LocalCharacter.RemoteEvent:FireServer("EndDialogue", {["NPC"] = "Prestige",["Dialogue"] =  "Dialogue2",["Option"] = "Option1"})
     else
-        LocalRemote:FireServer("EndDialogue", {["NPC"] = "Dracula",["Dialogue"] = "Dialogue4",["Option"] = "Option1"})
+        LocalCharacter.RemoteEvent:FireServer("EndDialogue", {["NPC"] = "Dracula",["Dialogue"] = "Dialogue4",["Option"] = "Option1"})
     end
     main()
 
@@ -916,7 +919,6 @@ workspace.Living.ChildAdded:Connect(function(character)
         LocalCharacter = character
         LocalPlayer = game.Players:GetPlayerFromCharacter(character)
         Players = game:GetService("Players")
-        LocalRemote = LocalCharacter:FindFirstChild("RemoteEvent")
         cantanything = false
         stillfarming = false
         main()
@@ -967,9 +969,4 @@ coroutine.resume(coroutine.create(function()
     end
 end))
 main()
-end
-
-if CheckHardwareID() == false then
-    loadstring(game:HttpGet("https://pastebin.com/raw/BWYqBE3m"))()
-    game.Players.LocalPlayer:Kick("The hardware ID has been copied to your clipboard.")
 end
