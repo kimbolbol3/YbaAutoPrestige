@@ -136,7 +136,9 @@ local function getmoney(int)
                             if b.Parent then
                                 if b.Parent:FindFirstChild("MeshPart") then
                                     local connected = game:GetService("RunService").Heartbeat:Connect(function()
-                                        LocalCharacter.HumanoidRootPart.CFrame = b.Parent.MeshPart.CFrame * CFrame.new(0,-15,0)
+                                        if b and b.Parent then
+                                            LocalCharacter.HumanoidRootPart.CFrame = b.Parent.MeshPart.CFrame * CFrame.new(0,-15,0)
+                                        end
                                     end)
                                     wait(.5)
                                     fireproximityprompt(b)
@@ -147,7 +149,9 @@ local function getmoney(int)
                             end
                         else
                             local connected = game:GetService("RunService").Heartbeat:Connect(function()
-                                LocalCharacter.HumanoidRootPart.CFrame = b.Parent.MeshPart.CFrame * CFrame.new(0,-15,0)
+                                if b and b.Parent then
+                                    LocalCharacter.HumanoidRootPart.CFrame = b.Parent.MeshPart.CFrame * CFrame.new(0,-15,0)
+                                end
                             end)
                             wait(.5)
                             fireproximityprompt(b)
@@ -308,7 +312,9 @@ local function ArrowRoka()
                         if b.Parent then
                             if b.Parent:FindFirstChild("MeshPart") then
                                 local connected = game:GetService("RunService").Heartbeat:Connect(function()
-                                    LocalCharacter.HumanoidRootPart.CFrame = b.Parent.MeshPart.CFrame * CFrame.new(0,-15,0)
+                                    if b and b.Parent then
+                                        LocalCharacter.HumanoidRootPart.CFrame = b.Parent.MeshPart.CFrame * CFrame.new(0,-15,0)
+                                    end
                                 end)
                                 wait(.5)
                                 fireproximityprompt(b)
@@ -322,7 +328,9 @@ local function ArrowRoka()
                         if b.Parent then
                             if b.Parent:FindFirstChild("MeshPart") then
                                 local connected = game:GetService("RunService").Heartbeat:Connect(function()
-                                    LocalCharacter.HumanoidRootPart.CFrame = b.Parent.MeshPart.CFrame * CFrame.new(0,-15,0)
+                                    if b and b.Parent then
+                                        LocalCharacter.HumanoidRootPart.CFrame = b.Parent.MeshPart.CFrame * CFrame.new(0,-15,0)
+                                    end
                                 end)
                                 wait(.5)
                                 fireproximityprompt(b)
@@ -499,7 +507,10 @@ local function killNPC(npcName, npcDistance, dontDestroyOnKill, extraParameters)
             if LocalCharacter:FindFirstChild("FocusCam") then
                 LocalCharacter:FindFirstChild("FocusCam"):Destroy()
             end
-            
+            local Folder = Instance.new("Folder")
+            Folder.Name = "DontTarget"
+            Folder.Parent = NPC
+
             beingTargeted = false
 
             if not dontDestroyOnKill then
@@ -532,6 +543,10 @@ local function killNPC(npcName, npcDistance, dontDestroyOnKill, extraParameters)
                 LocalCharacter:FindFirstChild("FocusCam"):Destroy()
             end
 
+            local Folder = Instance.new("Folder")
+            Folder.Name = "DontTarget"
+            Folder.Parent = NPC
+
             if not dontDestroyOnKill then
                 NPC:Destroy()
             end
@@ -539,6 +554,17 @@ local function killNPC(npcName, npcDistance, dontDestroyOnKill, extraParameters)
             deadCheck:Disconnect()
             beingTargeted = false
             return true
+        end
+
+        if NPC:FindFirstChild("DontTarget") then
+            if LocalCharacter:FindFirstChild("FocusCam") then
+                LocalCharacter:FindFirstChild("FocusCam"):Destroy()
+            end
+            NPC:Destroy()
+
+            deadCheck:Disconnect()
+            beingTargeted = false
+            return false
         end
 
         task.spawn(setStandMorphPosition)
