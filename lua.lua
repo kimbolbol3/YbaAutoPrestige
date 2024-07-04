@@ -22,7 +22,7 @@ wait(0.8)
 local Players = game:GetService("Players")
 local LocalPlayer = Players.LocalPlayer
 local LocalCharacter = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
-local LocalRemote = LocalCharacter:FindFirstChild("RemoteEvent")
+local LocalRemote = LocalCharacter:WaitForChild("RemoteEvent")
 local cantanything = false
 local stillfarming = false
 local TeleportService = loadstring(game:HttpGet"https://raw.githubusercontent.com/LeoKholYt/roblox/main/lk_serverhop.lua")()
@@ -90,7 +90,11 @@ local function skipScreen()
         HUD.Parent = LocalPlayer.PlayerGui
     end
 
-    LocalRemote:FireServer("PressedPlay")
+    if LocalRemote then
+        LocalRemote:FireServer("PressedPlay")
+    else
+        LocalRemote = LocalCharacter:FindFirstChild("RemoteEvent")
+    end
 
     if LocalPlayer.PlayerGui:FindFirstChild("LoadingScreen1") then
         LocalPlayer.PlayerGui:FindFirstChild("LoadingScreen1"):Destroy()
