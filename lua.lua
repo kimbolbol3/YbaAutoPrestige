@@ -35,6 +35,7 @@ local Level
 local Stand
 local Current
 local fpsconnection
+local lastitemfarmtick
 
 for i,v in pairs(workspace.Map:GetDescendants()) do
     if v:IsA("BasePart") then
@@ -120,7 +121,7 @@ end
 local function getmoney(int)
     for i,v in pairs(workspace.Item_Spawns.Items:GetChildren()) do
         pcall(function()
-        
+        lastitemfarmtick = tick()
         if cantanything then return end
         if v:IsA("Model") then
             for a,b in pairs(v:GetChildren()) do
@@ -180,6 +181,9 @@ local function getmoney(int)
             end
         end
     end)
+    end
+    if tick() - lastitemfarmtick >= 2 then
+        print("need teleport")
     end
 end
 
@@ -296,6 +300,7 @@ local function ArrowRoka()
     if stillfarming then return end
     for i,v in pairs(workspace.Item_Spawns.Items:GetChildren()) do
         pcall(function()
+            lastitemfarmtick = tick()
             if cantanything then return end
         if LocalPlayer.PlayerGui:FindFirstChild("DialogueGui") then return end
         if LocalCharacter:FindFirstChild("UsingArrow") then return end
@@ -372,7 +377,9 @@ local function ArrowRoka()
         end
         end)
        end    
-        
+    if tick() - lastitemfarmtick >= 2 then
+        print("need teleport")
+    end
     stillfarming = false
 end
 
@@ -445,12 +452,6 @@ local function killNPC(npcName, npcDistance, dontDestroyOnKill, extraParameters)
                 if LocalCharacter.Hamon.Value <= 0 then
                     LocalCharacter.RemoteFunction:InvokeServer("AssignSkillKey", {["Type"] = "Spec",["Key"] = "Enum.KeyCode.L",["Skill"] = "Hamon Charge"}) --to prevent overloading
                     LocalRemote:FireServer("InputBegan", {["Input"] = Enum.KeyCode.L})
-                end
-            end
-
-            if hasRage then
-                if LocalCharacter.Rage.Value >= 80 and PlayerStats.Stand.Value ~= "Crazy Diamond" then
-                    LocalRemote:FireServer("InputBegan", {["Input"] = Enum.KeyCode.H})
                 end
             end
         end
