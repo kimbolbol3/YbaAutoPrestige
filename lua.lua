@@ -588,6 +588,7 @@ end
 local function gethamon()
     if stillfarming then return end
     stillfarming = true
+    print("while get hamoning")
     for i,v in pairs(workspace.Item_Spawns.Items:GetChildren()) do
         if cantanything then return end
         lastitemfarmtick = tick()
