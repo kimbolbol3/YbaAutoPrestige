@@ -121,8 +121,9 @@ end
 local function getmoney(int)
     for i,v in pairs(workspace.Item_Spawns.Items:GetChildren()) do
         pcall(function()
-        lastitemfarmtick = tick()
+        
         if cantanything then return end
+        lastitemfarmtick = tick()
         if v:IsA("Model") then
             for a,b in pairs(v:GetChildren()) do
                 if b:IsA("ProximityPrompt") then
@@ -300,8 +301,9 @@ local function ArrowRoka()
     if stillfarming then return end
     for i,v in pairs(workspace.Item_Spawns.Items:GetChildren()) do
         pcall(function()
-            lastitemfarmtick = tick()
+            
             if cantanything then return end
+            lastitemfarmtick = tick()
         if LocalPlayer.PlayerGui:FindFirstChild("DialogueGui") then return end
         if LocalCharacter:FindFirstChild("UsingArrow") then return end
         stillfarming = true
@@ -588,6 +590,7 @@ local function gethamon()
     stillfarming = true
     for i,v in pairs(workspace.Item_Spawns.Items:GetChildren()) do
         if cantanything then return end
+        lastitemfarmtick = tick()
         if v:IsA("Model") then
             for a,b in pairs(v:GetChildren()) do
                 if b:IsA("ProximityPrompt") then
@@ -615,6 +618,9 @@ local function gethamon()
                 end
             end
         end
+    end
+    if tick() - lastitemfarmtick >= 2 then
+        print("need teleport")
     end
     stillfarming = false
 end
