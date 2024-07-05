@@ -42,7 +42,7 @@ for i,v in pairs(workspace.Map:GetDescendants()) do
         v.CanCollide = false
     end
 end
-repeat wait() ;local par = Instance.new("Part") ;par.Anchored = true ;par.Size = Vector3.new(2047, 1, 2047) ;par.Position = Vector3.new(95.5, -85.8, -64.5) ;par.Transparency = 1 ;par.Name = "AntiVoid" ;par.Parent = workspace until workspace:FindFirstChild("AntiVoid")
+repeat wait() ;local par = Instance.new("Part") ;par.Anchored = true ;par.Size = Vector3.new(2047, 1, 2047) ;par.Position = Vector3.new(95.5, -85.8, -64.5) ;par.Name = "AntiVoid" ;par.Parent = workspace until workspace:FindFirstChild("AntiVoid")
 repeat wait() ;local arrowspot = Instance.new("Part") ;arrowspot.Anchored = true ;arrowspot.Size = Vector3.new(30, 1, 30) ;arrowspot.Position = Vector3.new(722, 24440.008, 443) ;arrowspot.Transparency = 1 ;arrowspot.Name = "Arrow Spot" ;arrowspot.Parent = workspace until workspace:FindFirstChild("Arrow Spot")
 
 local vu = game:GetService("VirtualUser")
@@ -119,6 +119,8 @@ end
 
 local function getmoney(int)
     for i,v in pairs(workspace.Item_Spawns.Items:GetChildren()) do
+        pcall(function()
+        
         if cantanything then return end
         if v:IsA("Model") then
             for a,b in pairs(v:GetChildren()) do
@@ -177,6 +179,7 @@ local function getmoney(int)
                 end
             end
         end
+    end)
     end
 end
 
@@ -292,7 +295,8 @@ end
 local function ArrowRoka()
     if stillfarming then return end
     for i,v in pairs(workspace.Item_Spawns.Items:GetChildren()) do
-        if cantanything then return end
+        pcall(function()
+            if cantanything then return end
         if LocalPlayer.PlayerGui:FindFirstChild("DialogueGui") then return end
         if LocalCharacter:FindFirstChild("UsingArrow") then return end
         stillfarming = true
@@ -366,7 +370,9 @@ local function ArrowRoka()
                 end
             end
         end
-    end
+        end)
+       end    
+        
     stillfarming = false
 end
 
