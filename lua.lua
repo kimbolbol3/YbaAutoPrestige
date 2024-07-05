@@ -119,6 +119,10 @@ local function ChangeCurrentText(asdf)
 end
 
 local function getmoney(int)
+    if stillfarming then return end
+    if not lastitemfarmtick then
+        lastitemfarmtick = tick()
+    end
     for i,v in pairs(workspace.Item_Spawns.Items:GetChildren()) do
         pcall(function()
         
@@ -299,6 +303,10 @@ end
 
 local function ArrowRoka()
     if stillfarming then return end
+    stillfarming = true
+    if not lastitemfarmtick then
+        lastitemfarmtick = tick()
+    end
     for i,v in pairs(workspace.Item_Spawns.Items:GetChildren()) do
         pcall(function()
             
@@ -306,7 +314,6 @@ local function ArrowRoka()
             lastitemfarmtick = tick()
         if LocalPlayer.PlayerGui:FindFirstChild("DialogueGui") then return end
         if LocalCharacter:FindFirstChild("UsingArrow") then return end
-        stillfarming = true
         if v:IsA("Model") then
             if cantanything then return end
             for a,b in pairs(v:GetChildren()) do
@@ -588,6 +595,9 @@ end
 local function gethamon()
     if stillfarming then return end
     stillfarming = true
+    if not lastitemfarmtick then
+        lastitemfarmtick = tick()
+    end
     print("while get hamoning")
     for i,v in pairs(workspace.Item_Spawns.Items:GetChildren()) do
         if cantanything then return end
