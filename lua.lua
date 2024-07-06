@@ -187,8 +187,8 @@ local function getmoney(int)
         end
     end)
     end
-    if tick() - lastitemfarmtick >= 2 then
-        print("need teleport")
+    if tick() - lastitemfarmtick >= 3 then
+        TeleportService:Teleport(game.PlaceId)
     end
 end
 
@@ -386,8 +386,8 @@ local function ArrowRoka()
         end
         end)
        end    
-    if tick() - lastitemfarmtick >= 2 then
-        print("need teleport")
+       if tick() - lastitemfarmtick >= 3 then
+        TeleportService:Teleport(game.PlaceId)
     end
     stillfarming = false
 end
@@ -630,8 +630,8 @@ local function gethamon()
             end
         end
     end
-    if tick() - lastitemfarmtick >= 2 then
-        print("need teleport")
+    if tick() - lastitemfarmtick >= 3 then
+        TeleportService:Teleport(game.PlaceId)
     end
     stillfarming = false
 end
@@ -841,6 +841,12 @@ local function main()
     local Level1 = LocalStats:FindFirstChild("Level").Value
 
     if Prestige1 == 3 and Level1 == 50 then
+        for i,v in pairs(workspace.Map:GetDescendants()) do
+            if v:IsA("BasePart") then
+                v.Transparency = 0
+                v.CanCollide = true
+            end
+        end
         if getgenv().FpsBoost then
             fpsconnection:Disconnect()
             getgenv().FpsBoost = false
@@ -906,6 +912,12 @@ local function main()
         killern("Zombie Henchman")
     elseif Prestige1 == 3 and Level1 == 50 then
         printd("end the script")
+        for i,v in pairs(workspace.Map:GetDescendants()) do
+            if v:IsA("BasePart") then
+                v.Transparency = 0
+                v.CanCollide = true
+            end
+        end
         if getgenv().FpsBoost then
             fpsconnection:Disconnect()
             getgenv().FpsBoost = false
@@ -963,6 +975,12 @@ coroutine.resume(coroutine.create(function()
     local Level = LocalStats:FindFirstChild("Level").Value
 
     if Prestige == 3 and Level == 50 then
+        for i,v in pairs(workspace.Map:GetDescendants()) do
+            if v:IsA("BasePart") then
+                v.Transparency = 0
+                v.CanCollide = true
+            end
+        end
         if getgenv().FpsBoost then
             fpsconnection:Disconnect()
             getgenv().FpsBoost = false
@@ -989,7 +1007,7 @@ coroutine.resume(coroutine.create(function()
         end
         return
     end
-    while wait(10) do
+    --[[while wait(10) do
         if backframe then
             if backframe == LocalCharacter.HumanoidRootPart.Position then
                 TeleportService:Teleport(game.PlaceId)
@@ -998,7 +1016,7 @@ coroutine.resume(coroutine.create(function()
         else
             backframe = LocalCharacter.HumanoidRootPart.Position
         end
-    end
+    end]]
 end))
 main()
 end
