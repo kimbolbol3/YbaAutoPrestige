@@ -1007,7 +1007,7 @@ coroutine.resume(coroutine.create(function()
         end
         return
     end
-    --[[while wait(10) do
+    while wait(10) do
         if backframe then
             if backframe == LocalCharacter.HumanoidRootPart.Position then
                 TeleportService:Teleport(game.PlaceId)
@@ -1016,7 +1016,7 @@ coroutine.resume(coroutine.create(function()
         else
             backframe = LocalCharacter.HumanoidRootPart.Position
         end
-    end]]
+    end
 end))
 main()
 end
