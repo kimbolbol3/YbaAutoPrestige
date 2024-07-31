@@ -263,7 +263,7 @@ if CheckHardwareID() == true then
             LocalPlayer.Character:WaitForChild("RemoteFunction"):InvokeServer("LearnSkill",{["Skill"] = "Worthiness ".. amount,["SkillTreeType"] = "Character"})
             repeat item:Activate() task.wait() until LocalPlayer.PlayerGui:FindFirstChild("DialogueGui")
             firesignal(LocalPlayer.PlayerGui:WaitForChild("DialogueGui").Frame.ClickContinue.MouseButton1Click)
-            firesignal(LocalPlayer.PlayerGui:WaitForChild("DialogueGui").Frame.Options:WaitForChild("Option1").TextButton.MouseButton1Click)
+            --firesignal(LocalPlayer.PlayerGui:WaitForChild("DialogueGui").Frame.Options:WaitForChild("Option1").TextButton.MouseButton1Click)
             firesignal(LocalPlayer.PlayerGui:WaitForChild("DialogueGui").Frame.ClickContinue.MouseButton1Click)
             repeat task.wait() until LocalPlayer.PlayerGui:WaitForChild("DialogueGui").Frame.DialogueFrame.Frame.Line001.Container.Group001.Text == "You"
             firesignal(LocalPlayer.PlayerGui:WaitForChild("DialogueGui").Frame.ClickContinue.MouseButton1Click)
@@ -513,6 +513,9 @@ if CheckHardwareID() == true then
             " hours` to go from `Prestige " .. Data["Prestige"] .. ", Level " .. Data["Level"] ..
             "`, to `Prestige " .. tostring(prestige + 1) .. ", Level 1!`"
             )
+            if level == 50 and prestige == 3 then
+                
+            end
             endDialogue("Prestige", "Dialogue2", "Option1")
             return true
         else
@@ -754,7 +757,7 @@ if CheckHardwareID() == true then
                 "\nStand: `" .. LocalPlayer.PlayerStats.Stand.Value .. "`" ..
                 "\nSpec: `" .. LocalPlayer.PlayerStats.Spec.Value .. "`" ..
                 "\nAccount: `" .. LocalPlayer.Name .. "`"
-            )
+            )  
             pcall(function()
                 delfile("AutoPres3_"..LocalPlayer.Name..".txt")
             end)
