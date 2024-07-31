@@ -264,7 +264,7 @@ if CheckHardwareID() == true then
             repeat item:Activate() task.wait() until LocalPlayer.PlayerGui:FindFirstChild("DialogueGui")
             firesignal(LocalPlayer.PlayerGui:WaitForChild("DialogueGui").Frame.ClickContinue.MouseButton1Click)
             pcall(function()
-                firesignal(LocalPlayer.PlayerGui:WaitForChild("DialogueGui").Frame.Options:WaitForChild("Option1").TextButton.MouseButton1Click)
+                firesignal(LocalPlayer.PlayerGui:WaitForChild("DialogueGui").Frame.Options:FindFirstChild("Option1").TextButton.MouseButton1Click)
             end)
             firesignal(LocalPlayer.PlayerGui:WaitForChild("DialogueGui").Frame.ClickContinue.MouseButton1Click)
             repeat task.wait() until LocalPlayer.PlayerGui:WaitForChild("DialogueGui").Frame.DialogueFrame.Frame.Line001.Container.Group001.Text == "You"
@@ -515,26 +515,10 @@ if CheckHardwareID() == true then
             " hours` to go from `Prestige " .. Data["Prestige"] .. ", Level " .. Data["Level"] ..
             "`, to `Prestige " .. tostring(prestige + 1) .. ", Level 1!`"
             )
-            if level == 50 and prestige == 3 then
-                if Character:FindFirstChild("FocusCam") then
-                    Character.FocusCam:Destroy()
-                end
-        
-                SendWebhook(
-                    "**Prestige 3, Level 50 reached!**" ..
-                    "\nTime: `" .. (tick() - Data["Time"])/60 .. " minutes or " .. (tick() - Data["Time"])/3600 .. " hours`" ..
-                    "\nFrom: `Prestige: ".. Data["Prestige"]  .. ", Level " .. Data["Level"] .. "`" ..
-                    "\nStand: `" .. LocalPlayer.PlayerStats.Stand.Value .. "`" ..
-                    "\nSpec: `" .. LocalPlayer.PlayerStats.Spec.Value .. "`" ..
-                    "\nAccount: `" .. LocalPlayer.Name .. "`"
-                )  
-                pcall(function()
-                    delfile("AutoPres3_"..LocalPlayer.Name..".txt")
-                end)
-            end
             endDialogue("Prestige", "Dialogue2", "Option1")
             return true
         else
+            
             return false
         end
     end
@@ -762,6 +746,7 @@ if CheckHardwareID() == true then
             autoStory()
     
         elseif LocalPlayer.PlayerStats.Level.Value == 50 then
+            print("sadfasdf")
             if Character:FindFirstChild("FocusCam") then
                 Character.FocusCam:Destroy()
             end
@@ -777,6 +762,7 @@ if CheckHardwareID() == true then
             pcall(function()
                 delfile("AutoPres3_"..LocalPlayer.Name..".txt")
             end)
+            return
         end
     end
     
