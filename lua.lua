@@ -514,7 +514,21 @@ if CheckHardwareID() == true then
             "`, to `Prestige " .. tostring(prestige + 1) .. ", Level 1!`"
             )
             if level == 50 and prestige == 3 then
-                
+                if Character:FindFirstChild("FocusCam") then
+                    Character.FocusCam:Destroy()
+                end
+        
+                SendWebhook(
+                    "**Prestige 3, Level 50 reached!**" ..
+                    "\nTime: `" .. (tick() - Data["Time"])/60 .. " minutes or " .. (tick() - Data["Time"])/3600 .. " hours`" ..
+                    "\nFrom: `Prestige: ".. Data["Prestige"]  .. ", Level " .. Data["Level"] .. "`" ..
+                    "\nStand: `" .. LocalPlayer.PlayerStats.Stand.Value .. "`" ..
+                    "\nSpec: `" .. LocalPlayer.PlayerStats.Spec.Value .. "`" ..
+                    "\nAccount: `" .. LocalPlayer.Name .. "`"
+                )  
+                pcall(function()
+                    delfile("AutoPres3_"..LocalPlayer.Name..".txt")
+                end)
             end
             endDialogue("Prestige", "Dialogue2", "Option1")
             return true
